@@ -40,6 +40,14 @@ public class ImmutableLinkedListTest {
         newList.add(3, "ccc");
     }
 
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void testAddByNegativeIndex() {
+        ImmutableLinkedList list = new ImmutableLinkedList();
+        ImmutableLinkedList newList = list.add("aaa");
+        newList = newList.add("bbb");
+        newList.add(-1, "ccc");
+    }
+
     @Test
     public void testAddByIndex() {
         ImmutableLinkedList list = new ImmutableLinkedList(new Node("aaa"));
@@ -71,10 +79,17 @@ public class ImmutableLinkedListTest {
     }
 
     @Test(expected = IndexOutOfBoundsException.class)
-    public void testAddAllByIndexOutOfBounds() {
+    public void testAddAllByNegativeIndex() {
         ImmutableLinkedList list = new ImmutableLinkedList();
         list = list.addAll(new String[]{"aaa", "bbb", "ccc"});
         list.addAll(-1, new String[]{"ddd"});
+    }
+
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void testAddAllByIndexOutOfBounds() {
+        ImmutableLinkedList list = new ImmutableLinkedList();
+        list = list.addAll(new String[]{"aaa", "bbb", "ccc"});
+        list.addAll(5, new String[]{"ddd"});
     }
 
     @Test
@@ -177,10 +192,10 @@ public class ImmutableLinkedListTest {
     @Test
     public void testSet() {
         ImmutableLinkedList list = new ImmutableLinkedList(new Node("aaa"));
-        list = list.add("bbb");
-        ImmutableLinkedList newList = list.set(1, "ccc");
-        Object[] expectedOld = new Object[]{"aaa", "bbb"};
-        Object[] expectedNew = new Object[]{"aaa", "ccc"};
+        list = list.addAll(new Object[]{"bbb", "ccc"});
+        ImmutableLinkedList newList = list.set(2, "ddd");
+        Object[] expectedOld = new Object[]{"aaa", "bbb", "ccc"};
+        Object[] expectedNew = new Object[]{"aaa", "bbb", "ddd"};
         assertArrayEquals(expectedOld, list.toArray());
         assertArrayEquals(expectedNew, newList.toArray());
     }
