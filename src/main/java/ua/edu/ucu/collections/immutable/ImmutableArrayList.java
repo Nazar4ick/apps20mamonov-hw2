@@ -44,7 +44,7 @@ public final class ImmutableArrayList implements ImmutableList {
         Object[] newArray = new Object[this.length + c.length];
         System.arraycopy(this.items, 0, newArray, 0, index);
         System.arraycopy(c, 0, newArray, index, c.length);
-        if (c.length + this.length - index + c.length >= 0){
+        if (c.length + this.length - index + c.length >= 0) {
             System.arraycopy(this.items, index, newArray,
                     index + c.length, this.length - index);
         }
