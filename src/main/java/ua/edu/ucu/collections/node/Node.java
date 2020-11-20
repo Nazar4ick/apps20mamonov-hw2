@@ -1,8 +1,13 @@
 package ua.edu.ucu.collections.node;
 
+import lombok.Getter;
+import lombok.Setter;
+
 public class Node {
-    public Object data;
-    public Node next;
+    @Getter @Setter
+    private Object data;
+    @Getter @Setter
+    private Node next;
     public Node() {
         this.data = null;
         this.next = null;
