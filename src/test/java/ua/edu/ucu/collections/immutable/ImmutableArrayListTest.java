@@ -49,6 +49,12 @@ public class ImmutableArrayListTest {
         array.add(1, 1);
     }
 
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void testAddByNegativeIndex() {
+        ImmutableArrayList array = new ImmutableArrayList();
+        array.add(-2, 1);
+    }
+
     @Test
     public void testAddByIndex() {
         ImmutableArrayList array = new ImmutableArrayList(new Object[]{1, 2, 3});
@@ -72,6 +78,12 @@ public class ImmutableArrayListTest {
     @Test(expected = IndexOutOfBoundsException.class)
     public void testAddAllByIndexOutOfBounds() {
         ImmutableArrayList array = new ImmutableArrayList(new Object[]{1, 2});
+        array.addAll(10, new Object[]{1, 2, 3});
+    }
+
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void testAddAllByNegativeIndex() {
+        ImmutableArrayList array = new ImmutableArrayList(new Object[]{1, 2});
         array.addAll(-1, new Object[]{1, 2, 3});
     }
 
@@ -91,6 +103,12 @@ public class ImmutableArrayListTest {
         array.get(3);
     }
 
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void testGetNegativeIndex() {
+        ImmutableArrayList array = new ImmutableArrayList(new Object[]{1, 2, 3});
+        array.get(-1);
+    }
+
     @Test
     public void testGet() {
         ImmutableArrayList array = new ImmutableArrayList(new Object[]{1, 2, 3, 4, 5});
@@ -101,8 +119,15 @@ public class ImmutableArrayListTest {
     @Test(expected = IndexOutOfBoundsException.class)
     public void testRemoveByIndexOutOfBounds() {
         ImmutableArrayList array = new ImmutableArrayList(new Object[]{1, 2, 3});
+        array.remove(8);
+    }
+
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void testRemoveByNegativeIndex() {
+        ImmutableArrayList array = new ImmutableArrayList(new Object[]{1, 2, 3});
         array.remove(-1);
     }
+
 
     @Test
     public void testRemove() {
@@ -118,6 +143,12 @@ public class ImmutableArrayListTest {
     public void testSetByIndexOutOfBounds() {
         ImmutableArrayList array = new ImmutableArrayList(new Object[]{1, 2});
         array.set(2, 4);
+    }
+
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void testSetByNegativeIndex() {
+        ImmutableArrayList array = new ImmutableArrayList(new Object[]{1, 2});
+        array.set(-1, 4);
     }
 
     @Test

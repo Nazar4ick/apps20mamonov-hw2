@@ -79,21 +79,14 @@ public final class ImmutableLinkedList implements ImmutableList {
         if (index >= this.size() || index < 0) {
             throw new IndexOutOfBoundsException();
         }
-        if (index == 0) {
-            Node newNode = new Node();
-            this.addArray(c, newNode);
-            return new ImmutableLinkedList(newNode.getNext());
-        }
-        else {
-            int i = index;
-            ImmutableLinkedList newList = this.add(i, c[0]);
+        int i = index;
+        ImmutableLinkedList newList = this.add(i, c[0]);
+        i += 1;
+        for (int j = 1; j < c.length; j++) {
+            newList = newList.add(i, c[j]);
             i += 1;
-            for (int j = 1; j < c.length; j++) {
-                newList = newList.add(i, c[j]);
-                i += 1;
-            }
-            return newList;
         }
+        return newList;
     }
 
     @Override

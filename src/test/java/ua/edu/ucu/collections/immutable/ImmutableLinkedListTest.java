@@ -60,6 +60,16 @@ public class ImmutableLinkedListTest {
         assertArrayEquals(expectedNew, newList.toArray());
     }
 
+    @Test
+    public void testAddAllToNonEmpty() {
+        ImmutableLinkedList list = new ImmutableLinkedList(new Node("aaa"));
+        ImmutableLinkedList newList = list.addAll(new String[]{"bbb", "ccc"});
+        Object[] expectedOld = new Object[]{"aaa"};
+        Object[] expectedNew = new Object[]{"aaa", "bbb", "ccc"};
+        assertArrayEquals(expectedOld, list.toArray());
+        assertArrayEquals(expectedNew, newList.toArray());
+    }
+
     @Test(expected = IndexOutOfBoundsException.class)
     public void testAddAllByIndexOutOfBounds() {
         ImmutableLinkedList list = new ImmutableLinkedList();
@@ -78,11 +88,29 @@ public class ImmutableLinkedListTest {
         assertArrayEquals(expectedNew, newList.toArray());
     }
 
+    @Test
+    public void testAddAllByZeroIndex() {
+        ImmutableLinkedList list = new ImmutableLinkedList(new Node("aaa"));
+        list = list.add("bbb");
+        ImmutableLinkedList newList = list.addAll(0, new String[]{"ccc", "ddd"});
+        Object[] expectedOld = new Object[]{"aaa", "bbb"};
+        Object[] expectedNew = new Object[]{"ccc", "ddd", "aaa", "bbb"};
+        assertArrayEquals(expectedOld, list.toArray());
+        assertArrayEquals(expectedNew, newList.toArray());
+    }
+
     @Test(expected = IndexOutOfBoundsException.class)
     public void testGetIndexOutOfBounds() {
         ImmutableLinkedList list = new ImmutableLinkedList();
         list = list.addAll(new String[]{"aaa", "bbb", "ccc"});
         list.get(4);
+    }
+
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void testGetNegativeIndex() {
+        ImmutableLinkedList list = new ImmutableLinkedList();
+        list = list.addAll(new String[]{"aaa", "bbb", "ccc"});
+        list.get(-1);
     }
 
     @Test
@@ -129,12 +157,30 @@ public class ImmutableLinkedListTest {
         list.set(2, "ccc");
     }
 
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void testSetNegative() {
+        ImmutableLinkedList list = new ImmutableLinkedList(new Node("aaa"));
+        list = list.add("bbb");
+        list.set(-3, "ccc");
+    }
+
     @Test
-    public void testSet() {
+    public void testSetZeroIndex() {
         ImmutableLinkedList list = new ImmutableLinkedList(new Node("aaa"));
         ImmutableLinkedList newList = list.set(0, "bbb");
         Object[] expectedOld = new Object[]{"aaa"};
         Object[] expectedNew = new Object[]{"bbb"};
+        assertArrayEquals(expectedOld, list.toArray());
+        assertArrayEquals(expectedNew, newList.toArray());
+    }
+
+    @Test
+    public void testSet() {
+        ImmutableLinkedList list = new ImmutableLinkedList(new Node("aaa"));
+        list = list.add("bbb");
+        ImmutableLinkedList newList = list.set(1, "ccc");
+        Object[] expectedOld = new Object[]{"aaa", "bbb"};
+        Object[] expectedNew = new Object[]{"aaa", "ccc"};
         assertArrayEquals(expectedOld, list.toArray());
         assertArrayEquals(expectedNew, newList.toArray());
     }
